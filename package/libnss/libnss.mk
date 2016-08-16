@@ -72,6 +72,11 @@ define LIBNSS_INSTALL_STAGING_CMDS
 		$(STAGING_DIR)/usr/lib/pkgconfig/nss.pc
 endef
 
+ifeq ($(BR2_PACKAGE_LIBNSS_TOOLS),y)
+LIBNSS_INSTALL_STAGING_CMDS += ; $(INSTALL) -m 755 -t $(TARGET_DIR)/usr/bin/ \
+	$(@D)/$(LIBNSS_DISTDIR)/bin/*
+endif
+
 define LIBNSS_INSTALL_TARGET_CMDS
 	$(INSTALL) -m 755 -t $(TARGET_DIR)/usr/lib/ \
 		$(@D)/$(LIBNSS_DISTDIR)/lib/*.so
